@@ -334,6 +334,15 @@ func (p *MediaPlaylist) last() uint {
 	return p.tail - 1
 }
 
+func (p *MediaPlaylist) SetSegments(segments []*MediaSegment) {
+	p.capacity = uint(len(segments))
+	p.tail = p.capacity
+	p.head = 0
+	p.count = p.capacity
+	p.Segments = segments
+	p.ResetCache()
+}
+
 // Remove current segment from the head of chunk slice form a media playlist. Useful for sliding playlists.
 // This operation does reset playlist cache.
 func (p *MediaPlaylist) Remove() (err error) {
